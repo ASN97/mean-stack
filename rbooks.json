@@ -1,0 +1,22 @@
+{
+   "book1" : {
+      "name" : "Harry Potter and the prisoner",
+      "author" : " J K Rowling",
+      "price" : "100",
+      "genre": "Fantasy"
+   },
+   
+   "book2" : {
+      "name" : "Percy Jackson",
+      "author" : " Philips",
+      "price" : "200",
+      "genre": "Fiction"
+   },
+   
+   "book3" : {
+      "name" : "SOmething",
+      "author" : " Someone",
+      "price" : "Some price",
+      "genre": "Some genre"
+   }
+}

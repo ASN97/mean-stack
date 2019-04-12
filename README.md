@@ -17,6 +17,11 @@ things.js
 #File operations
 fileacess.js
 
+#Json api
+rbooks.json
+wbooks.json
+json_get.js
+
 #User age
 midware.js
 
@@ -24,3 +29,5 @@ midware.js
 Module/testauth.js
 
 
+#client server 
+client server folder
