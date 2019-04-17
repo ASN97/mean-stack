@@ -2,7 +2,7 @@
 const express = require('express')
 const bodyParser= require('body-parser')
 const multer = require('multer');
-
+var fs = require("fs");
 //CREATE EXPRESS APP
 const app = express();
 app.use(bodyParser.urlencoded({extended: true}))
@@ -22,6 +22,8 @@ var storage = multer.diskStorage({
 })
  
 var upload = multer({ storage: storage })
+
+
 app.post('/uploadfile', upload.single('myFile'), (req, res, next) => {
   const file = req.file
   if (!file) {
@@ -32,7 +34,29 @@ app.post('/uploadfile', upload.single('myFile'), (req, res, next) => {
     res.send(file)
   
 })
+app.post('/uploadpic', upload.single('myImage'), (req, res, next) => {
+ /* const file = req.file
+  
+  var ext = path.extname(file.originalname);
+        if(ext !== '.png' && ext !== '.jpg' && ext !== '.gif' && ext !== '.jpeg') {
+          const error = new Error('Only images are allowed')
+          error.httpStatusCode = 400
+          return next(error)
+        }
+    res.send(file)
+*/
+    var nam=req.file.originalname;
+    console.log(nam);
 
+    const file = req.file
+    if (!nam.includes(".png") ||!nam.includes(".jpg") ||!nam.includes(".jpeg")) {
+      const error = new Error('Need an image')
+      error.httpStatusCode = 400
+      return next(error)
+    }
+      res.send(file)
+  
+})
 
 app.post('/uploadmultiple', upload.array('myFiles', 12), (req, res, next) => {
   const files = req.files
@@ -45,7 +69,7 @@ app.post('/uploadmultiple', upload.array('myFiles', 12), (req, res, next) => {
     res.send(files)
   
 })
-
+/*
 const MongoClient = require('mongodb').MongoClient
 const myurl = 'mongodb://localhost:27017';
  
@@ -57,7 +81,7 @@ MongoClient.connect(myurl, (err, client) => {
   })
 })
 
-app.post('/uploadphoto', upload.single('picture'), (req, res) => {
+app.post('/uploadphoto', upload.single('myImage'), (req, res) => {
     var img = fs.readFileSync(req.file.path);
  var encode_image = img.toString('base64');
  // Define a JSONobject for the image attributes for saving to database
@@ -77,7 +101,8 @@ db.collection('quotes').insertOne(finalImg, (err, result) => {
      
   })
 })
-
+*/
+/*
 app.get('/photos', (req, res) => {
 db.collection('mycollection').find().toArray((err, result) => {
  
@@ -102,5 +127,5 @@ db.collection('mycollection').findOne({'_id': ObjectId(filename) }, (err, result
     
   })
 })
- 
+ */
 app.listen(3000, () => console.log('Server started on port 3000'));

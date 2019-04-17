@@ -4,48 +4,50 @@ var app = express();
 
 app.get('/hello', function(req, res){
    res.send("Hello World!");
-});
+  });
 
-app.post('/hello', function(req, res){
-   res.send("You just called the post method at '/hello'!\n");
-});
+
+
 var things = require('./things.js');
+
 app.use('/things', things);
 //he function is executed every time the app receives a request.
+
+
+
 app.use(function (req, res, next) {
    console.log('Time:', Date.now())
    next()
- })
+ });
 
 
-app.use(app.router);
 
-// Since this is the last non-error-handling
-// middleware use()d, we assume 404, as nothing else
-// responded.
+ app.get('/demomid',first,second);
+ msg='The first user is Aromal-Roll number 34'
+ mgs='The first user is Priyanka-Roll number 20'
+ function first(req,res,next)
+ {
+   console.log(msg);
+   //res.write(msg);
+   finalmsg=msg+' '+mgs;
+   next();
+ }
 
-// $ curl http://localhost:3000/notfound
-// $ curl http://localhost:3000/notfound -H "Accept: application/json"
-// $ curl http://localhost:3000/notfound -H "Accept: text/plain"
+ function second(req,res,next)
+ {   console.log(finalmsg);
+  res.send(finalmsg);
+ 
+   
+ }
 
-app.use(function(req, res, next){
-  res.status(404);
+app.get('/bookname/:bname/author/:auth',function(req,res){
+  res.send('You requested book with bookname '+req.params.bname+' of author '+req.params.auth);
+}
 
-  // respond with html page
-  if (req.accepts('html')) {
-    res.render('404', { url: req.url });
-    return;
-  }
+);
 
-  // respond with json
-  if (req.accepts('json')) {
-    res.send({ error: 'Not found' });
-    return;
-  }
 
-  // default to plain-text. send()
-  res.type('txt').send('Not found');
-});
+
 
 
 app.listen(3000);

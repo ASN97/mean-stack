@@ -20,9 +20,9 @@ app.get('/writebooks',function(req,res){
    const fs = require('fs');
    
    let book4 = {  
-      "name" : "CCPT",
-      "author" : "abhirami",
-      "price" : "300",
+      "name" : "Zero limits",
+      "author" : "Priyanka",
+      "price" : "400",
       "genre": "Fiction"
    };
    
